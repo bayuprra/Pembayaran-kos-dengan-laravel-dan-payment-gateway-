@@ -3,7 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\EmailController;
 use App\Http\Controllers\KamarController;
+use App\Http\Controllers\PenyewaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,4 +33,11 @@ Route::controller(KamarController::class)->middleware('auth')->group(function ()
     Route::post('/addKamar', 'store')->name('addKamar');
     Route::post('/updateKamar', 'update')->name('updateKamar');
     Route::post('/deleteKamar', 'delete')->name('deleteKamar');
+});
+
+Route::controller(PenyewaController::class)->middleware('auth')->group(function () {
+    Route::get('/managePenyewa', 'index')->name('managePenyewa');
+    Route::post('/addPenyewa', 'store')->name('addPenyewa');
+    Route::post('/updatePenyewa', 'update')->name('updatePenyewa');
+    Route::post('/deletePenyewa', 'delete')->name('deletePenyewa');
 });
