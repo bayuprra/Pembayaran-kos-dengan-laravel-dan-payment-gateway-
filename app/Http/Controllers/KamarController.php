@@ -28,6 +28,11 @@ class KamarController extends Controller
         );
         $inserted = $this->kamarModel::create($dataToInserted);
         if ($inserted) {
+            $kostData = [
+                'kamar_id'      => $inserted->id,
+                'penyewa_id'    => null,
+            ];
+            $this->kostModel::create($kostData);
             return redirect()->back()->with('success', 'Kamar Berhasil Ditambahkan');
         }
         return redirect()->back()->with('error', 'Kamar Gagal Ditambahkan');

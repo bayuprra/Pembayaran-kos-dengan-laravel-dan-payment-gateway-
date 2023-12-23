@@ -59,7 +59,7 @@
                                             style="margin-top: 0;width: 50%" id="deleteButton"
                                             onclick="hapus({{ $da->id }})"><i
                                                 class="fas fa-solid fa-trash"></i></button>
-                                        <form action="{{ route('deleteKamar') }}" method="post"
+                                        <form action="{{ route('deletePenyewa') }}" method="post"
                                             id="formHapus{{ $da->id }}">
                                             @csrf
                                             <input type="hidden" name="id" value="{{ $da->id }}">
@@ -162,89 +162,89 @@
         <!-- /.modal-dialog -->
     </div>
 
-    {{-- @foreach ($data as $da)
+    @foreach ($data as $da)
         <div class="modal fade" id="modal-update-{{ $da->id }}">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">Edit Kamar</h4>
+                        <h4 class="modal-title">Edit Penyewa</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form action="{{ route('updateKamar') }}" method="POST">
+                        <form action="{{ route('updatePenyewa') }}" method="POST">
                             @csrf
                             <input type="hidden" name="id" value="{{ $da->id }}">
+
                             <div class="row">
                                 <div class="col-sm-12 row">
                                     <!-- text input -->
                                     <div class="col-6">
                                         <div class="form-group">
-                                            <label>Nomor Kamar</label>
-                                            <input type="text" class="form-control" placeholder="Nomor Kamar"
-                                                name="nomor" value="{{ $da->nomor }}">
+                                            <label>No KTP</label>
+                                            <input type="text" class="form-control" placeholder="No KTP"
+                                                name="ktp" minlength="16" maxlength="16"
+                                                value="{{ $da->ktp }}" required>
                                         </div>
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group">
-                                            <label>Harga</label>
-                                            <input type="number" class="form-control" placeholder="Harga Sewa"
-                                                name="harga" value="{{ $da->harga }}">
+                                            <label>Nama</label>
+                                            <input type="text" class="form-control" placeholder="Nama" name="nama"
+                                                value="{{ $da->nama }}" required>
                                         </div>
                                     </div>
-
                                 </div>
-                                <div class="col-sm-12">
-                                    <!-- textarea -->
-
-                                    <div class="form-group">
-                                        @php
-                                            $dataFromDatabase = $da->fitur;
-                                            $dataArray = explode(',', str_replace(' ', '', $dataFromDatabase));
-                                        @endphp
-                                        <label>Fasilitas</label>
-                                        <select name="fitur[]" class="select2" multiple="multiple"
-                                            data-placeholder="Select a State" style="width: 100%;">
-                                            <option
-                                                {{ in_array(strtolower('kamarmandidalam'), array_map('strtolower', $dataArray)) ? 'selected' : '' }}>
-                                                Kamar
-                                                Mandi Dalam</option>
-                                            <option
-                                                {{ in_array(strtolower('kamarmandiluar'), array_map('strtolower', $dataArray)) ? 'selected' : '' }}>
-                                                Kamar
-                                                Mandi Luar</option>
-                                            <option
-                                                {{ in_array(strtolower('kasur'), array_map('strtolower', $dataArray)) ? 'selected' : '' }}>
-                                                Kasur</option>
-                                            <option
-                                                {{ in_array(strtolower('ac'), array_map('strtolower', $dataArray)) ? 'selected' : '' }}>
-                                                AC</option>
-                                            <option
-                                                {{ in_array(strtolower('lemari'), array_map('strtolower', $dataArray)) ? 'selected' : '' }}>
-                                                Lemari</option>
-                                            <option
-                                                {{ in_array(strtolower('MejadanKursiBelajar'), array_map('strtolower', $dataArray)) ? 'selected' : '' }}>
-                                                Meja dan Kursi Belajar</option>
-                                            <option
-                                                {{ in_array(strtolower('wifi'), array_map('strtolower', $dataArray)) ? 'selected' : '' }}>
-                                                Wifi</option>
-                                            <option
-                                                {{ in_array(strtolower('DapurBersama'), array_map('strtolower', $dataArray)) ? 'selected' : '' }}>
-                                                Dapur Bersama</option>
-                                            <option
-                                                {{ in_array(strtolower('Loundri'), array_map('strtolower', $dataArray)) ? 'selected' : '' }}>
-                                                Loundri</option>
-                                            <option
-                                                {{ in_array(strtolower('ParkirMotor'), array_map('strtolower', $dataArray)) ? 'selected' : '' }}>
-                                                Parkir Motor</option>
-                                            <option
-                                                {{ in_array(strtolower('ParkirMobil'), array_map('strtolower', $dataArray)) ? 'selected' : '' }}>
-                                                Parkir Mobil</option>
-                                            <option
-                                                {{ in_array(strtolower('Akses24Jam'), array_map('strtolower', $dataArray)) ? 'selected' : '' }}>
-                                                Akses 24 Jam</option>
-                                        </select>
+                                <div class="col-sm-12 row">
+                                    <!-- text input -->
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>Email</label>
+                                            <input type="email" class="form-control" placeholder="Alamat Email"
+                                                name="email" value="{{ $da->email }}" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>Telpon</label>
+                                            <input type="text" pattern="[0-9]+" class="form-control"
+                                                placeholder="Nomor Telepon" name="telpon" maxlength="15"
+                                                value="{{ $da->telpon }}" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 row">
+                                    <!-- text input -->
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>Kontak Darurat</label>
+                                            <input type="text" pattern="[0-9]+" class="form-control"
+                                                placeholder="Kontak Darurat" name="kontak_darurat" maxlength="15"
+                                                value="{{ $da->kontak_darurat }}" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="form-group">
+                                            <label>Jenis Kelamin</label>
+                                            <select class="custom-select" name="gender">
+                                                <option value="1" {{ $da->gender == 1 ? 'selected' : '' }}>Laki -
+                                                    Laki</option>
+                                                <option value="0" {{ $da->gender == 0 ? 'selected' : '' }}>Wanita
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="form-group">
+                                            <label>Jumlah Penghuni</label>
+                                            <select class="custom-select" name="penghuni">
+                                                <option value="1" {{ $da->penghuni == 1 ? 'selected' : '' }}>1
+                                                </option>
+                                                <option value="2" {{ $da->penghuni == 2 ? 'selected' : '' }}>2
+                                                </option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -260,7 +260,7 @@
             </div>
             <!-- /.modal-dialog -->
         </div>
-    @endforeach --}}
+    @endforeach
 @endSection
 
 @section('script')

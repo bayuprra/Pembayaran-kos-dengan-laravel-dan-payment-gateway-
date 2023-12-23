@@ -62,7 +62,7 @@
                         <a href="#" class="dropdown-item" onclick="logout()">
                             <i class="fas fa-sign-out-alt mr-2"></i> LogOut
                         </a>
-                        <form action="/logout" method="post" id="formLogout">
+                        <form action="{{ route('logout') }}" method="post" id="formLogout">
                             @csrf
                             <button type="submit" hidden>Logout</button>
                         </form>
@@ -175,10 +175,11 @@
     <script src="{{ asset('AdminLTE/dist/js/pages/dashboard2.js') }}"></script>
     <script>
         $(function() {
-            var url = window.location;
-            console.log(url)
+            var url = window.location.href;
+            url = url.replace("#", "");
             // for single sidebar menu
             $('ul.nav-sidebar a').filter(function() {
+
                 return this.href == url;
             }).addClass('active');
 

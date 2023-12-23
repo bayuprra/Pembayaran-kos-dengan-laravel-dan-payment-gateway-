@@ -15,7 +15,7 @@
                     alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block">Admin</a>
+                <a href="#" class="d-block">{{ session()->get('data')->nama_role ?? 'User' }}</a>
             </div>
         </div>
 
@@ -26,109 +26,57 @@
                 <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
 
-                <li class="nav-item">
-                    <a href="{{ route('dashboard') }}" class="nav-link">
-                        <i class=" nav-icon fas fa-tachometer-alt"></i>
-                        <p>
-                            Dashboard
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('manageKamar') }}" class="nav-link">
-                        <i class=" nav-icon fas fa-bed"></i>
-                        <p>
-                            Manage Kamar
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('managePenyewa') }}" class="nav-link">
-                        <i class=" nav-icon fas fa-users"></i>
-                        <p>
-                            Manage Penyewa
-                        </p>
-                    </a>
-                </li>
-                {{-- <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-copy"></i>
-                        <p>
-                            Manage Kamar
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href=" " class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Data Kategori Produk</p>
-                            </a>
-                        </li>
-                    </ul>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Data Merk Produk</p>
-                            </a>
-                        </li>
-                    </ul>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Data Produk</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li> --}}
-                {{--  <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-chart-pie"></i>
-                        <p>
-                            Customer
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Data Customer</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-tree"></i>
-                        <p>
-                            Order
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Data Order</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Data Transaksi</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Data Pengiriman</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li> --}}
+                @if (session()->get('data')->nama_role == 'Admin')
+                    <li class="nav-item">
+                        <a href="{{ route('dashboard') }}" class="nav-link">
+                            <i class=" nav-icon fas fa-tachometer-alt"></i>
+                            <p>
+                                Dashboard
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('manageKamar') }}" class="nav-link">
+                            <i class=" nav-icon fas fa-bed"></i>
+                            <p>
+                                Manage Kamar
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('managePenyewa') }}" class="nav-link">
+                            <i class=" nav-icon fas fa-users"></i>
+                            <p>
+                                Manage Penyewa
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('manageKostan') }}" class="nav-link">
+                            <i class=" nav-icon fas fa-home"></i>
+                            <p>
+                                Manage KOST
+                            </p>
+                        </a>
+                    </li>
+                @else
+                    <li class="nav-item">
+                        <a href="{{ route('profil') }}" class="nav-link">
+                            <i class=" nav-icon fas fa-bed"></i>
+                            <p>
+                                Profil
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('profil') }}" class="nav-link">
+                            <i class=" nav-icon fas fa-bed"></i>
+                            <p>
+                                Pembayaran
+                            </p>
+                        </a>
+                    </li>
+                @endif
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

@@ -5,6 +5,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\KamarController;
+use App\Http\Controllers\KostanController;
 use App\Http\Controllers\PenyewaController;
 
 /*
@@ -22,6 +23,7 @@ Route::controller(LoginController::class)->group(function () {
     Route::get('/', 'login')->name('login');
     Route::get('/login', 'login');
     Route::post('/login', 'authentikasi');
+    Route::post('/logout', 'logout')->name('logout');
 });
 
 Route::controller(DashboardController::class)->middleware('auth')->group(function () {
@@ -40,4 +42,14 @@ Route::controller(PenyewaController::class)->middleware('auth')->group(function 
     Route::post('/addPenyewa', 'store')->name('addPenyewa');
     Route::post('/updatePenyewa', 'update')->name('updatePenyewa');
     Route::post('/deletePenyewa', 'delete')->name('deletePenyewa');
+
+
+    Route::get('/profil', 'profil')->name('profil');
+    Route::post('/editProfil', 'editProfil')->name('editProfil');
+});
+
+Route::controller(KostanController::class)->middleware('auth')->group(function () {
+    Route::get('/manageKostan', 'index')->name('manageKostan');
+    Route::post('/isiKamar', 'isiKamar')->name('isiKamar');
+    Route::post('/kosongKamar', 'kosongKamar')->name('kosongKamar');
 });

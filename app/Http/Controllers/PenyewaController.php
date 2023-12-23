@@ -38,7 +38,7 @@ class PenyewaController extends Controller
         $pass = $this->generateRandomString();
         $akun = array(
             'username'      => $data['email'],
-            'password'      => sha1($pass),
+            'password'      => bcrypt($pass),
             'role_id'       => 2
         );
         $emailData = array(
@@ -69,31 +69,40 @@ class PenyewaController extends Controller
     {
         $data = $request->all();
         $id = $data['id'];
-        $dataSpec = $this->kamarModel->find($id);
+        $dataSpec = $this->penyewaModel->find($id);
 
-        $fitur = strtoupper(implode(",", $data['fitur']));
-        $dataToUpdate = [
-            'nomor'     => $data['nomor'],
-            'harga'     => intval($data['harga']),
-            'fitur'     => $fitur
-        ];
-
-        $updateData = $dataSpec->update($dataToUpdate);
+        $updateData = $dataSpec->update($data);
         if ($updateData) {
-            return redirect()->back()->with('success', 'Kamar Berhasil Diubah');
+            return redirect()->back()->with('success', 'Data Berhasil Diubah');
         }
-        return redirect()->back()->with('error', 'Kamar Gagal Diubah');
+        return redirect()->back()->with('error', 'Data Gagal Diubah');
     }
 
     /**\ Delete */
     public function delete(Request $request)
     {
         $id = intval($request['id']);
-        $data = $this->kamarModel->find($id);
+        $data = $this->penyewaModel->find($id);
+        $akun = $this->akunModel->find($data['akun_id']);
         $deleteData = $data->delete();
-        if ($deleteData) {
-            return redirect()->back()->with('success', 'Kamar Berhasil Dihapus');
+        $deleteAkun = $akun->delete();
+        if ($deleteData && $deleteAkun) {
+            return redirect()->back()->with('success', 'Penyewa Berhasil Dihapus');
         }
-        return redirect()->back()->with('error', 'Kamar Gagal Dihapus');
+        return redirect()->back()->with('error', 'Penyewa Gagal Dihapus');
+    }
+
+
+
+    //user
+    public function profil()
+    {
+        $id = session()->get('data')->pId;
+        $data = [
+            'title'     => "Profil",
+            'folder'    => "Home",
+            'profil'    => $this->penyewaModel->find($id)
+        ];
+        return view('layout/user_layout/profil', $data);
     }
 }

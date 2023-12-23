@@ -29,4 +29,20 @@ class AkunModel extends Authenticatable
             ->where('akun.id', $account_id)
             ->first();
     }
+
+    public function getPenyewaLoginData($account_id)
+    {
+        return DB::table('akun')
+            ->join('role', 'akun.role_id', '=', 'role.id')
+            ->join('penyewa', 'akun.id', '=', 'penyewa.akun_id')
+            ->select(
+                'akun.id',
+                'akun.username',
+                'akun.role_id',
+                'role.nama as nama_role',
+                'penyewa.id as pId'
+            )
+            ->where('akun.id', $account_id)
+            ->first();
+    }
 }
