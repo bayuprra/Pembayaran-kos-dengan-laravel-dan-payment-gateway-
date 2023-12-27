@@ -45,6 +45,7 @@ Route::controller(PenyewaController::class)->middleware('auth')->group(function 
 
 
     Route::get('/profil', 'profil')->name('profil');
+    Route::get('/myRoom', 'myRoom')->name('myRoom');
     Route::post('/editProfil', 'editProfil')->name('editProfil');
 });
 
@@ -52,4 +53,6 @@ Route::controller(KostanController::class)->middleware('auth')->group(function (
     Route::get('/manageKostan', 'index')->name('manageKostan');
     Route::post('/isiKamar', 'isiKamar')->name('isiKamar');
     Route::post('/kosongKamar', 'kosongKamar')->name('kosongKamar');
+    Route::post('/bayarkost', 'bayarkost')->name('bayarkost');
+    Route::post('/successPayment', 'successPayment')->name('successPayment');
 });

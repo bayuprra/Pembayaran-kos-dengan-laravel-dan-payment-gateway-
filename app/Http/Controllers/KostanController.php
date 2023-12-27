@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\kostModel;
+use DateTime;
+use Exception;
+use Facade\FlareClient\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Date;
 
@@ -69,10 +72,61 @@ class KostanController extends Controller
 
     function bayarkost(Request $request)
     {
+        try {
 
-        \Midtrans\Config::$serverKey = config('midtrans.server_key');
-        \Midtrans\Config::$isProduction = false;
-        \Midtrans\Config::$isSanitized = true;
-        \Midtrans\Config::$is3ds = true;
+            $data = $request->input('data');
+
+            \Midtrans\Config::$serverKey = config('midtrans.server_key');
+            \Midtrans\Config::$isProduction = false;
+            \Midtrans\Config::$isSanitized = true;
+            \Midtrans\Config::$is3ds = true;
+
+            $date = date("Y-m-d H:i:s");
+
+            $params = array(
+                'transaction_details' => array(
+                    'order_id'      => $data['id'] . ',' . $date,
+                    'gross_amount'  => $data['amount']
+                ),
+                'customer_details'  => array(
+                    'name'      => $data['nama'],
+                    'phone'      => $data['telpon']
+                ),
+            );
+
+            $snapToken = \Midtrans\Snap::getSnapToken($params);
+            return response()->json(['data' => $snapToken]);
+        } catch (Exception $e) {
+            return response()->json(['data' => $e->getMessage()]);
+        }
+    }
+
+    function successPayment(Request $request)
+    {
+        $data = $request->input('data');;
+        $id = $data['id'];
+        $da = $this->kostModel->find($id);
+        $date = new DateTime($da['expired_at']);
+        $year = intval($date->format("Y"));
+        $month = intval($date->format("m")) + 1;
+        $day = intval($date->format("d"));
+
+        if ($month > 12) {
+            $year += 1;
+            $month -= 12;
+        }
+
+        $dataToUpdate = array(
+            'kamar_id'  => $da['kamar_id'],
+            'penyewa_id'  => $da['penyewa_id'],
+            'status'  => $da['status'],
+            'created_at'  => $da['created_at'],
+            'expired_at'  => date($year . "-" . $month . "-" . $day),
+        );
+        $updateData = $da->update($dataToUpdate);
+        if ($updateData) {
+            return response()->json(['data' => true]);
+        }
+        return response()->json(['data' => false]);
     }
 }

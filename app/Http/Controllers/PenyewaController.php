@@ -105,4 +105,15 @@ class PenyewaController extends Controller
         ];
         return view('layout/user_layout/profil', $data);
     }
+
+    public function myRoom()
+    {
+        $id = session()->get('data')->pId;
+        $data = [
+            'title'     => "My Room",
+            'folder'    => "Home",
+            'data'    => $this->kostModel->userDataKost($id)
+        ];
+        return view('layout/user_layout/invoice', $data);
+    }
 }

@@ -62,17 +62,17 @@
                 @else
                     <li class="nav-item">
                         <a href="{{ route('profil') }}" class="nav-link">
-                            <i class=" nav-icon fas fa-bed"></i>
+                            <i class=" nav-icon fas fa-id-card"></i>
                             <p>
                                 Profil
                             </p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('profil') }}" class="nav-link">
+                        <a href="{{ route('myRoom') }}" class="nav-link">
                             <i class=" nav-icon fas fa-bed"></i>
                             <p>
-                                Pembayaran
+                                Kamar Saya
                             </p>
                         </a>
                     </li>
