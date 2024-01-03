@@ -9,8 +9,11 @@ class DashboardController extends Controller
     public function index()
     {
         return view('layout/admin_layout/dashboard', [
-            'title'     => "Dashboard",
-            'folder'    => "Home",
+            'title'         => "Dashboard",
+            'folder'        => "Home",
+            'jumlahKamar'   => $this->kamarModel->jumlahKamar(),
+            'kamarTerisi'   => $this->kostModel->statusKamar('!='),
+            'kamarKosong'   => $this->kostModel->statusKamar('='),
         ]);
     }
 }

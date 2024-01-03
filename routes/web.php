@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\KamarController;
 use App\Http\Controllers\KostanController;
+use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\PenyewaController;
 
 /*
@@ -55,4 +56,8 @@ Route::controller(KostanController::class)->middleware('auth')->group(function (
     Route::post('/kosongKamar', 'kosongKamar')->name('kosongKamar');
     Route::post('/bayarkost', 'bayarkost')->name('bayarkost');
     Route::post('/successPayment', 'successPayment')->name('successPayment');
+});
+
+Route::controller(PasswordController::class)->middleware('auth')->group(function () {
+    Route::get('/changePassword', 'index')->name('changePassword');
 });

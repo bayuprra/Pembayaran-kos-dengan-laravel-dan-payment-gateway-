@@ -56,4 +56,12 @@ class kostModel extends Model
             ->where('p.id', $id)
             ->first();
     }
+
+    function statusKamar($con)
+    {
+        return DB::table($this->table)
+            ->where('penyewa_id', $con, null)
+            ->get()
+            ->count();
+    }
 }
