@@ -39,7 +39,8 @@
             <div class="card-body login-card-body">
                 <p class="login-box-msg">Ganti Password</p>
 
-                <form action="#" id="changePassword">
+                <form action="{{ route('change') }}" method="POST" id="changePassword">
+                    @csrf
                     <div class="input-group mb-3">
                         <input type="password" class="form-control" placeholder="Password Lama" name="old"
                             id="old">

@@ -57,7 +57,7 @@
                     </div>
                     <div class="input-group mb-3">
                         <input type="password" class="form-control @error('password') is-invalid @enderror"
-                            placeholder="Password" name="password" required>
+                            placeholder="Password" name="password" required id="pass">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
@@ -68,6 +68,12 @@
                                 {{ $message }}
                             </div>
                         @enderror
+                    </div>
+                    <div class="form-group mb-0">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" name="terms" class="custom-control-input" id="exampleCheck1">
+                            <label class="custom-control-label" for="exampleCheck1">Show Password</label>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-8">
@@ -94,6 +100,19 @@
     <script src="{{ asset('AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <!-- AdminLTE App -->
     <script src="{{ asset('AdminLTE/dist/js/adminlte.min.js') }}"></script>
+    <script>
+        $(function() {
+            let jum = 1;
+            const oldP = $('#pass');
+            $('#exampleCheck1').change(function() {
+                if (jum++ % 2 !== 0) {
+                    oldP.attr('type', 'text');
+                } else {
+                    oldP.attr('type', 'password');
+                }
+            })
+        })
+    </script>
 </body>
 
 </html>

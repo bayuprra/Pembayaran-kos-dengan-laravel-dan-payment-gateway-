@@ -60,4 +60,5 @@ Route::controller(KostanController::class)->middleware('auth')->group(function (
 
 Route::controller(PasswordController::class)->middleware('auth')->group(function () {
     Route::get('/changePassword', 'index')->name('changePassword');
+    Route::post('/change', 'change')->name('change');
 });
